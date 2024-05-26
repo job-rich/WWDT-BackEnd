@@ -1,23 +1,33 @@
-package com.wwdt.entity
+package com.wwdt.domain.entity
 
-import com.wwdt.common.BaseEntity
+import com.wwdt.domain.entity.common.BaseEntity
 import jakarta.persistence.*
+import java.util.*
 
 @Entity
-@Table(name = "t_user")
+@Table(name = "t_user",
+       indexes = [Index(name = "idx_user_email", columnList = "email", unique = true)]
+)
 class User(
-    @Column(nullable = false, unique = true, length = 500)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    val userJoinTeamRequests: MutableList<UserTeamJoinRequest> = mutableListOf(),
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_seq")
+    val role: Role,
+
+    @Column(nullable = false, length = 500)
     val email: String,
 
     @Column(nullable = false, length = 500)
     var password: String,
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 300)
     val name: String,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: String
+    val id: UUID = UUID.randomUUID()
 
 ): BaseEntity(){
     override fun equals(other: Any?): Boolean {

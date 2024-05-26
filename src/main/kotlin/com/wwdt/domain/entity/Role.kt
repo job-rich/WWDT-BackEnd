@@ -1,16 +1,19 @@
-package com.wwdt.entity
+package com.wwdt.domain.entity
 
-import com.wwdt.common.BaseEntity
+import com.wwdt.domain.entity.common.BaseEntity
+import com.wwdt.domain.entity.enums.RoleGrant
 import jakarta.persistence.*
 
 @Entity
+@Table(name = "t_role")
 class Role(
-    @Column(nullable = false, length = 100)
-    val name: String,
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    val name: RoleGrant,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val seq: Long?
+    val seq: Long = 0L
 ): BaseEntity(){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -22,7 +25,7 @@ class Role(
     }
 
     override fun hashCode(): Int {
-        return seq?.hashCode() ?: 0
+        return seq.hashCode()
     }
 
     override fun toString(): String {

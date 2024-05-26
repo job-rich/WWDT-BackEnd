@@ -1,10 +1,17 @@
-package com.wwdt.entity
+package com.wwdt.domain.entity
 
-import com.wwdt.common.BaseEntity
+import com.wwdt.domain.entity.common.BaseEntity
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 @Entity
+@Table(name = "t_task_force",
+       indexes = [Index(name = "idx_task_force_completed_at", columnList = "completedAt")]
+)
 class TaskForce(
+    @Column
+    var completedAt: LocalDateTime? = null,
+
     @Column(length = 10000)
     var description: String,
 
@@ -13,7 +20,7 @@ class TaskForce(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val seq: Long?
+    val seq: Long = 0L
 ): BaseEntity(){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -25,7 +32,7 @@ class TaskForce(
     }
 
     override fun hashCode(): Int {
-        return seq?.hashCode() ?: 0
+        return seq.hashCode()
     }
 
     override fun toString(): String {

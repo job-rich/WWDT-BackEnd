@@ -1,4 +1,4 @@
-package com.wwdt.common
+package com.wwdt.domain.entity.common
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners

@@ -1,10 +1,23 @@
-package com.wwdt.entity
+package com.wwdt.domain.entity
 
-import com.wwdt.common.BaseEntity
+import com.wwdt.domain.entity.common.BaseEntity
 import jakarta.persistence.*
 
 @Entity
+@Table(name = "t_team",
+       indexes = [
+        Index(name = "idx_team_name", columnList = "name"),
+        Index(name = "idx_team_parent_seq", columnList = "parent_seq")
+    ]
+)
 class Team(
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "team")
+    val teamJoinRequests: MutableList<UserTeamJoinRequest> = mutableListOf(),
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_seq")
+    val parent: Team? = null,
+
     @Column(length = 10000)
     var description: String,
 
@@ -13,7 +26,7 @@ class Team(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val seq: Long?
+    val seq: Long = 0L
 ): BaseEntity(){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -25,7 +38,7 @@ class Team(
     }
 
     override fun hashCode(): Int {
-        return seq?.hashCode() ?: 0
+        return seq.hashCode()
     }
 
     override fun toString(): String {
