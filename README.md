@@ -19,4 +19,6 @@
 - **docs**: 문서 수정
 - **env**: 환경 설정 파일 수정
 ---
+# Database ERD 
+- https://www.figma.com/board/HETHblolf79UuWpKGBgNDz/database?node-id=0-1&t=WVUTpsCeSdFxDeMU-1
 
