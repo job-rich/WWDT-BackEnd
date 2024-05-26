@@ -6,7 +6,7 @@
     책임만 미루는 상황은 이제 그만~~
 ---
 # Git Convention & Commit Convention
-- **master**: 초기 설정
+- **main**: 초기 설정
   - **develop**: 개발 브랜치
     - **feature**: 기능 개발 브랜치
   - **hotfix**: 급한 버그 수정 브랜치
