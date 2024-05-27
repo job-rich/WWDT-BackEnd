@@ -25,15 +25,27 @@ java {
 repositories {
     mavenCentral()
     maven { url = uri("https://repo.spring.io/snapshot") }
+    maven { url = uri("https://repo1.maven.org/maven2")}
 }
 
+val swaggerVersion = "2.5.0"
+
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    // Swagger
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$swaggerVersion")
+
+    // Database
     implementation("org.postgresql:postgresql")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // DevTools
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
@@ -47,4 +59,12 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.jar {
+    enabled = false
+}
+
+tasks.bootJar {
+    enabled = true
 }
