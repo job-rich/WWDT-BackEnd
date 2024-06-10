@@ -4,6 +4,8 @@
     Who Will Do This?
     이거 누가 할건가요?
     책임만 미루는 상황은 이제 그만~~
+    누가 무엇을 할지 정해놓고 시작해요!
+    -- 재설계중 -- 
 ---
 # Git Convention & Commit Convention
 - **main**: 초기 설정
@@ -19,6 +21,6 @@
 - **docs**: 문서 수정
 - **env**: 환경 설정 파일 수정
 ---
-# Database ERD 
-- https://www.figma.com/board/HETHblolf79UuWpKGBgNDz/database?node-id=0-1&t=WVUTpsCeSdFxDeMU-1
+# Database 
+- [ERD](https://www.figma.com/board/HETHblolf79UuWpKGBgNDz/database?node-id=0-1&t=WVUTpsCeSdFxDeMU-1)
 
