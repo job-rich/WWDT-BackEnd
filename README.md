@@ -7,7 +7,7 @@
     누가 무엇을 할지 정해놓고 시작해요!
     -- 재설계중 -- 
 ---
-# Git Convention & Commit Convention
+# Git Convention
 - **main**: 초기 설정
   - **develop**: 개발 브랜치
     - **feature**: 기능 개발 브랜치
@@ -15,6 +15,7 @@
   - **stage**: 스테이징 브랜치
   - **deploy**: 배포 브랜치
 ---
+# Commit Convention
 - **feat**: 새로운 기능 추가
 - **refactor**: 코드 리팩토링
 - **fix**: 버그 수정
