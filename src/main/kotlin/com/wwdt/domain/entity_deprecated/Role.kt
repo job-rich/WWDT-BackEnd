@@ -1,7 +1,7 @@
-package com.wwdt.domain.entity
+package com.wwdt.domain.entity_deprecated
 
-import com.wwdt.domain.entity.common.BaseEntity
-import com.wwdt.domain.entity.enums.RoleGrant
+import com.wwdt.domain.entity_deprecated.common.BaseEntity
+import com.wwdt.domain.entity_deprecated.enums.RoleGrant
 import jakarta.persistence.*
 
 @Entity

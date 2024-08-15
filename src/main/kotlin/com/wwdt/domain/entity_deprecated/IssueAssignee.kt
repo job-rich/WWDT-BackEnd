@@ -1,28 +1,26 @@
-package com.wwdt.domain.entity
+package com.wwdt.domain.entity_deprecated
 
-import com.wwdt.domain.entity.common.BaseEntity
+import com.wwdt.domain.entity_deprecated.common.BaseEntity
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "t_issue_property")
-class IssueProperty(
-
+@Table(name = "t_issue_assignee")
+class IssueAssignee(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "issue_id")
     val issue: Issue,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "property_seq")
-    val properties: Property,
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    val assignee: User,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val seq: Long = 0L
-
-) : BaseEntity() {
+): BaseEntity(){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is IssueProperty) return false
+        if (other !is IssueAssignee) return false
 
         if (seq != other.seq) return false
 
@@ -34,9 +32,9 @@ class IssueProperty(
     }
 
     override fun toString(): String {
-        return "IssueProperty(" +
+        return "IssueAssignee(" +
                 "issue=$issue, " +
-                "properties=$properties, " +
+                "assignee=$assignee, " +
                 "seq=$seq" +
                 ")"
     }

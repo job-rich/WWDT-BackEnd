@@ -1,26 +1,27 @@
-package com.wwdt.domain.entity
+package com.wwdt.domain.entity_deprecated
 
-import com.wwdt.domain.entity.common.BaseEntity
+import com.wwdt.domain.entity_deprecated.common.BaseEntity
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "t_issue_assignee")
-class IssueAssignee(
-    @ManyToOne(fetch = FetchType.LAZY)
+@Table(name = "t_issue_task_force")
+class IssueTaskForce (
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "issue_id")
     val issue: Issue,
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    val assignee: User,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "task_force_seq")
+    val taskForce: TaskForce,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val seq: Long = 0L
+
 ): BaseEntity(){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is IssueAssignee) return false
+        if (other !is IssueTaskForce) return false
 
         if (seq != other.seq) return false
 
@@ -32,10 +33,6 @@ class IssueAssignee(
     }
 
     override fun toString(): String {
-        return "IssueAssignee(" +
-                "issue=$issue, " +
-                "assignee=$assignee, " +
-                "seq=$seq" +
-                ")"
+        return "IssueTaskForce(issue=$issue, taskForce=$taskForce, seq=$seq)"
     }
 }

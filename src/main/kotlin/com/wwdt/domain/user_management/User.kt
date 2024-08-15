@@ -1,6 +1,6 @@
-package com.wwdt.domain.user
+package com.wwdt.domain.user_management
 
-import com.wwdt.domain.entity.common.BaseEntity
+import com.wwdt.domain.entity_deprecated.common.BaseEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id

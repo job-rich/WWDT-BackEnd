@@ -1,8 +1,8 @@
-package com.wwdt.domain.entity
+package com.wwdt.domain.entity_deprecated
 
-import com.wwdt.domain.entity.common.BaseEntity
-import com.wwdt.domain.entity.enums.IssuePriority
-import com.wwdt.domain.entity.enums.IssueStatus
+import com.wwdt.domain.entity_deprecated.common.BaseEntity
+import com.wwdt.domain.entity_deprecated.enums.IssuePriority
+import com.wwdt.domain.entity_deprecated.enums.IssueStatus
 import jakarta.persistence.*
 import java.time.LocalDateTime
 import java.util.UUID

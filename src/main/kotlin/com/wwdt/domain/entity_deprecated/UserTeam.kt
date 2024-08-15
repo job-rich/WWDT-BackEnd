@@ -1,18 +1,18 @@
-package com.wwdt.domain.entity
+package com.wwdt.domain.entity_deprecated
 
-import com.wwdt.domain.entity.common.BaseEntity
+import com.wwdt.domain.entity_deprecated.common.BaseEntity
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "t_user_task_force")
-class UserTaskForce(
+@Table(name = "t_user_team")
+class UserTeam(
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     val user: User,
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "task_force_seq")
-    val taskForce: TaskForce,
+    @JoinColumn(name = "team_seq")
+    val team: Team,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ class UserTaskForce(
 ): BaseEntity(){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is UserTaskForce) return false
+        if (other !is UserTeam) return false
 
         if (seq != other.seq) return false
 
@@ -32,6 +32,6 @@ class UserTaskForce(
     }
 
     override fun toString(): String {
-        return "UserTaskForce(user=$user, taskForce=$taskForce, seq=$seq)"
+        return "UserTeam(user=$user, team=$team, seq=$seq)"
     }
 }

@@ -1,4 +1,4 @@
-package com.wwdt.domain.entity.enums
+package com.wwdt.domain.entity_deprecated.enums
 
 enum class IssuePriority {
     LOWEST,
