@@ -29,5 +29,5 @@
 - [INFRA](https://www.figma.com/board/t9YICcanWTDQoriJGDpBjj/System-diagram?node-id=1-160&t=ak331AcQvsAOyNaG-1)
 
 # Database 
-- [ERD](https://www.figma.com/board/HETHblolf79UuWpKGBgNDz/database?node-id=0-1&t=WVUTpsCeSdFxDeMU-1)
+- [ERD](https://dbdiagram.io/d/WWDT-66bcbd008b4bb5230e1da4cb)
 
