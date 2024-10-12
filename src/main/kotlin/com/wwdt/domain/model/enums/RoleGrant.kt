@@ -1,4 +1,4 @@
-package com.wwdt.domain.model
+package com.wwdt.domain.model.enums
 
 enum class RoleGrant {
     ROLE_SYSTEM_ADMIN,

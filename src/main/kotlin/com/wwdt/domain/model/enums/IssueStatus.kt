@@ -1,4 +1,4 @@
-package com.wwdt.domain.entity_deprecated.enums
+package com.wwdt.domain.model.enums
 
 enum class IssueStatus {
     OPEN,

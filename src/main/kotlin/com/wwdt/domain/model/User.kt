@@ -1,5 +1,6 @@
 package com.wwdt.domain.model
 
+import com.wwdt.shared_kernal.model.BaseEntity
 import jakarta.persistence.*
 import java.util.UUID
 
@@ -21,7 +22,6 @@ class User(
     @Column(unique = true, length = 255)
     val email: String,
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @Id @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID = UUID.randomUUID(),
 ): BaseEntity()

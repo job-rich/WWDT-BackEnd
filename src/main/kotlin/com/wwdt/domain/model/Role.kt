@@ -1,5 +1,7 @@
 package com.wwdt.domain.model
 
+import com.wwdt.domain.model.enums.RoleGrant
+import com.wwdt.shared_kernal.model.BaseEntity
 import jakarta.persistence.*
 
 @Entity
