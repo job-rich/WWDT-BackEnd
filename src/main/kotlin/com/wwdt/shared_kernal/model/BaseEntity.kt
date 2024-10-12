@@ -1,4 +1,4 @@
-package com.wwdt.domain.entity_deprecated.common
+package com.wwdt.shared_kernal.model
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners
@@ -15,7 +15,7 @@ class BaseEntity {
     @CreatedDate
     @Column(updatable = false)
     // var 로 선언되어 있지만 CreatedDate 어노테이션 과 updatable = false 설정으로 인해 값이 변경되지 않음
-    var createdAt: LocalDateTime? = null
+    var createdAt: LocalDateTime = LocalDateTime.now()
 
     @LastModifiedDate
     var updatedAt: LocalDateTime? = null
