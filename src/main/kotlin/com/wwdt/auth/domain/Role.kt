@@ -1,6 +1,6 @@
-package com.wwdt.domain.model
+package com.wwdt.auth.domain
 
-import com.wwdt.domain.model.enums.RoleGrant
+import com.wwdt.auth.domain.enums.RoleGrant
 import com.wwdt.shared_kernal.model.BaseEntity
 import jakarta.persistence.*
 
