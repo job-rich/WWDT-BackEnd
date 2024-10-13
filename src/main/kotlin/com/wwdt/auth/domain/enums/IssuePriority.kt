@@ -1,4 +1,4 @@
-package com.wwdt.domain.model.enums
+package com.wwdt.auth.domain.enums
 
 enum class IssuePriority {
     LOWEST,

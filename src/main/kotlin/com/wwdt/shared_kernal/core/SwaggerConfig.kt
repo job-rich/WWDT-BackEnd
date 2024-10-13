@@ -1,4 +1,4 @@
-package com.wwdt.core
+package com.wwdt.shared_kernal.core
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition
 import io.swagger.v3.oas.annotations.info.Info

@@ -1,4 +1,4 @@
-package com.wwdt.domain.model
+package com.wwdt.auth.domain
 
 import com.wwdt.shared_kernal.model.BaseEntity
 import jakarta.persistence.*
