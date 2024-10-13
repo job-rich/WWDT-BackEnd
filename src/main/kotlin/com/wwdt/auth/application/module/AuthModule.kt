@@ -2,8 +2,7 @@ package com.wwdt.auth.application.module
 
 import com.wwdt.auth.domain.*
 import com.wwdt.auth.domain.enums.RoleGrant
-import com.wwdt.auth.infra.RoleRepository
-import com.wwdt.auth.infra.UserRepository
+import com.wwdt.auth.infra.*
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
@@ -18,7 +17,7 @@ class AuthModule(
 
     @Transactional
     override fun registerUser(registerVo: RegistrationUser): Boolean {
-        validateEmail(registerVo.email)
+        userRepo.validateExistByEmail(registerVo.email)
         val registerUser = registerVo.toUser()
         // TODO: Encrypt password
         val basicRole = roleRepo.findRoleByType(RoleGrant.ROLE_USER)
@@ -26,11 +25,6 @@ class AuthModule(
         registerUser.roles.add(userRole)
         userRepo.save(registerUser)
         return true
-    }
-
-    private fun validateEmail(email: String) {
-        val isExistEmail: Boolean = userRepo.existsByEmail(email)
-        check(!isExistEmail) { "Email already exists" }
     }
 
 
