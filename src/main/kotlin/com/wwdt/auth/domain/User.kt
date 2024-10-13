@@ -9,9 +9,8 @@ import java.util.UUID
        indexes = [Index(name = "idx_user_email", columnList = "email", unique = true)]
 )
 class User(
-
-    @OneToMany(mappedBy = "user_id", cascade = [CascadeType.ALL] ,fetch = FetchType.LAZY)
-    val role: MutableList<Role> = mutableListOf(),
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL] ,fetch = FetchType.LAZY)
+    val roles: MutableList<UserRole> = mutableListOf(),
 
     @Column(length = 255)
     var password: String,
