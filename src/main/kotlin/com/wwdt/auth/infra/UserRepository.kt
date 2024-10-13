@@ -9,3 +9,8 @@ import java.util.UUID
 interface UserRepository: JpaRepository<User, UUID> {
     fun existsByEmail(email: String): Boolean
 }
+
+fun UserRepository.validateExistByEmail(email: String) {
+    // Check if email already exists
+    check (!existsByEmail(email = email)) { "Email already exists" }
+}
