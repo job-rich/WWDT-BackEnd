@@ -9,13 +9,9 @@ import jakarta.persistence.*
        indexes = [Index(name = "idx_role_type", columnList = "type")]
 )
 class Role(
-    @JoinColumn(name = "user_id")
-    @OneToOne(fetch = FetchType.LAZY)
-    val userId: User,
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    val type: RoleGrant,
+    val type: RoleGrant = RoleGrant.ROLE_USER,
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

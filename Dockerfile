@@ -1,17 +1,22 @@
-FROM openjdk:21-jdk-slim
-
+# Build Stage
+FROM gradle:8.10.2-jdk AS build
 LABEL authors="qjxlftn@gmail.com"
-
-ENV TZ=Asia/Seoul
 
 WORKDIR /app
 
 COPY . /app
 
-RUN chmod +x ./gradlew
+RUN gradle clean build -x test
 
-RUN ./gradlew build
+# Run Stage
+FROM openjdk:21-jdk-slim
+
+ENV TZ=Asia/Seoul
+
+WORKDIR /app
+
+COPY --from=build /app/build/libs/WWDT-0.0.1-SNAPSHOT.jar /app/WWDT-0.0.1-SNAPSHOT.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "build/libs/WWDT-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/WWDT-0.0.1-SNAPSHOT.jar"]

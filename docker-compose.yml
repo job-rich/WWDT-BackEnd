@@ -1,8 +1,43 @@
-version: '1'
+version: "3"
 services:
+  database:
+    image: postgres:latest
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${user}
+      POSTGRES_PASSWORD: ${password}
+      POSTGRES_DB: ${db}
+    ports:
+        - "5432:5432" # expose port 5432 to host, Only Use Debugging
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - wwdt_network
   app:
     build:
         context: .
         dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database/${db}
+      SPRING_DATASOURCE_USERNAME: ${user}
+      SPRING_DATASOURCE_PASSWORD: ${password}
+    depends_on:
+        - database
+    networks:
+        - wwdt_network
+
+#  cache:
+#    image: redis:latest
+
+networks:
+    wwdt_network:
+        driver: bridge
+volumes:
+  pgdata:
+
