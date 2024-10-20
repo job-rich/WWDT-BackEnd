@@ -1,71 +1,64 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.2.6-SNAPSHOT"
-    id("io.spring.dependency-management") version "1.1.4"
+    id("org.springframework.boot") version "3.3.4" apply false
+    id("io.spring.dependency-management") version "1.1.4" apply false
+    kotlin("plugin.spring") version "1.9.23" apply false
+    kotlin("plugin.jpa") version "1.9.23" apply false
     kotlin("jvm") version "1.9.23"
-    kotlin("plugin.spring") version "1.9.23"
-    kotlin("plugin.jpa") version "1.9.23"
 }
 
-allOpen {
-    annotation("jakarta.persistence.Entity")
-    annotation("jakarta.persistence.Embeddable")
-    annotation("jakarta.persistence.MappedSuperclass")
-}
+allprojects{
+    group = "com.wwdt"
+    version = "0.0.1-SNAPSHOT"
 
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        maven { url = uri("https://repo.spring.io/snapshot") }
+        maven { url = uri("https://repo1.maven.org/maven2")}
+    }
+    tasks.withType<JavaCompile> {
+        options.encoding = "UTF-8"
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
 
-group = "com"
-version = "0.0.1-SNAPSHOT"
+    }
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs += "-Xjsr305=strict"
+            jvmTarget = "21"
+        }
+    }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 
-repositories {
-    mavenCentral()
-    maven { url = uri("https://repo.spring.io/snapshot") }
-    maven { url = uri("https://repo1.maven.org/maven2")}
 }
 
 val swaggerVersion = "2.5.0"
+subprojects{
+    apply(plugin = "org.springframework.boot")
+    apply(plugin = "io.spring.dependency-management")
+    apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+    apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
+    apply(plugin = "org.jetbrains.kotlin.plugin.allopen")
+    apply(plugin = "kotlin")
+    apply(plugin = "kotlin-kapt")
 
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    dependencies {
+        implementation("org.springframework.boot:spring-boot-starter-web")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        // Database
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-    // Swagger
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$swaggerVersion")
+        // Swagger
+        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$swaggerVersion")
 
-    // Database
-    implementation("org.postgresql:postgresql")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+        // Test
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    // DevTools
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-
-    // Test
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "17"
     }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
-tasks.jar {
-    enabled = false
-}
-
-tasks.bootJar {
-    enabled = true
 }
