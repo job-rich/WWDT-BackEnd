@@ -6,7 +6,7 @@ import com.wwdt.auth.domain.EditService
 import org.springframework.stereotype.Service
 
 @Service
-class AuthApplication(
+class IdentifierApplication(
     private val authModule: AuthService,
     private val editModule: EditService
 ) {
