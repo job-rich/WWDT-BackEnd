@@ -18,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @Configuration
 class SecurityConfig {
     private val allowedUrls = arrayOf("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**")
+
     @Bean
     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder(18)
 

@@ -55,6 +55,7 @@ subprojects{
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         // Logging
         implementation("io.github.oshai:kotlin-logging-jvm:$loggerVersion")
+
         // Database
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
@@ -63,6 +64,6 @@ subprojects{
 
         // Test
         testImplementation("org.springframework.boot:spring-boot-starter-test")
-
+        testImplementation("com.h2database:h2")
     }
 }
