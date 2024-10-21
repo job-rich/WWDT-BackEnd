@@ -12,3 +12,7 @@ allOpen {
     annotation("jakarta.persistence.Embeddable")
     annotation("jakarta.persistence.MappedSuperclass")
 }
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-security")
+}

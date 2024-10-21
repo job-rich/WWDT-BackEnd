@@ -38,6 +38,8 @@ allprojects{
 }
 
 val swaggerVersion = "2.5.0"
+val loggerVersion = "7.0.0"
+
 subprojects{
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
@@ -51,6 +53,8 @@ subprojects{
         implementation("org.springframework.boot:spring-boot-starter-web")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
+        // Logging
+        implementation("io.github.oshai:kotlin-logging-jvm:$loggerVersion")
         // Database
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
