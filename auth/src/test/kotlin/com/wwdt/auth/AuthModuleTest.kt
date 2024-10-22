@@ -1,6 +1,6 @@
 package com.wwdt.auth
 
-import com.wwdt.auth.application.module.AuthModule
+import com.wwdt.auth.application.module.AccountModule
 import com.wwdt.auth.domain.RegistrationUser
 import com.wwdt.auth.domain.Role
 import com.wwdt.auth.domain.User
@@ -20,7 +20,7 @@ class AuthModuleTest {
     private val userRepo = mock(UserRepository::class.java)
     private val roleRepo = mock(RoleRepository::class.java)
     private val passwordEncoder = mock(PasswordEncoderWrapper::class.java)
-    private val authModule = AuthModule(userRepo, roleRepo, passwordEncoder)
+    private val authModule = AccountModule(userRepo, roleRepo, passwordEncoder)
 
     @Test
     fun `신규 가입 유저 성공적으로 등록`() {
