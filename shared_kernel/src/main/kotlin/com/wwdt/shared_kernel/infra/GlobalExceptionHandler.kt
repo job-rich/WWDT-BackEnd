@@ -1,5 +1,6 @@
 package com.wwdt.shared_kernel.infra
 
+import com.fasterxml.jackson.core.JsonParseException
 import com.fasterxml.jackson.databind.exc.InvalidFormatException
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.wwdt.shared_kernel.model.CommonResponse
@@ -26,6 +27,10 @@ class GlobalExceptionHandler {
             is MismatchedInputException -> {
                 val missingParameter = cause.path.joinToString(separator = ".") { it.fieldName }
                 "Missing parameter: $missingParameter"
+            }
+            is JsonParseException -> {
+                val parsingError = cause.message.toString().split(":")[0]
+                "Parsing Error: $parsingError"
             }
             else -> when(val nestCause = cause?.cause){
                 is IllegalArgumentException -> {
