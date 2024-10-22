@@ -11,6 +11,7 @@ dependencies {
     implementation(project(":shared_kernel"))
     // Database
     implementation("org.postgresql:postgresql")
+    implementation("com.h2database:h2")
 }
 
 tasks.test {

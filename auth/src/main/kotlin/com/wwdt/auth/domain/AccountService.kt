@@ -1,6 +1,6 @@
 package com.wwdt.auth.domain
 
-interface AuthService {
+interface AccountService {
     fun authenticate(authenticationVo: ValidationUser): Boolean
 
     fun registerUser(registerVo: RegistrationUser): Boolean

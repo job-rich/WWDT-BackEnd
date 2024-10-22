@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
 @Component
-class AuthModule(
+class AccountModule(
     private val userRepo: UserRepository,
     private val roleRepo: RoleRepository,
     private val passwordEncoder: PasswordEncoderWrapper
-): AuthService {
+): AccountService {
     override fun authenticate(authenticationVo: ValidationUser): Boolean {
         TODO("Not yet implemented")
     }
@@ -33,6 +33,5 @@ class AuthModule(
         userRepo.save(registerUser)
         return true
     }
-
 
 }
