@@ -20,7 +20,7 @@ class UserRepositoryTest {
         userRepository.save(user)
 
         // when
-        val foundUser = userRepository.findByEmail("test@example.com")
+        val foundUser = userRepository.findUserByEmail("test@example.com")
 
         // then
         assertThat(foundUser).isNotNull

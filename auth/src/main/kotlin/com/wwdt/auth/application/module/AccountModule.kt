@@ -4,6 +4,7 @@ import com.wwdt.auth.domain.*
 import com.wwdt.auth.domain.enums.RoleGrant
 import com.wwdt.auth.infra.RoleRepository
 import com.wwdt.auth.infra.UserRepository
+import com.wwdt.auth.infra.findUserByEmail
 import com.wwdt.auth.infra.validateExistByEmail
 import com.wwdt.shared_kernel.infra.PasswordEncoderWrapper
 import org.springframework.stereotype.Component
@@ -15,8 +16,10 @@ class AccountModule(
     private val roleRepo: RoleRepository,
     private val passwordEncoder: PasswordEncoderWrapper
 ): AccountService {
-    override fun authenticate(authenticationVo: ValidationUser): Boolean {
-        TODO("Not yet implemented")
+    override fun authenticate(authenticationVo: ValidationUser): User {
+        val user = userRepo.findUserByEmail(authenticationVo.email)
+        check (passwordEncoder.matches(authenticationVo.password, user.password)) { "Password is incorrect" }
+        return user
     }
 
     @Transactional
@@ -32,6 +35,11 @@ class AccountModule(
         registerUser.roles.add(userRole)
         userRepo.save(registerUser)
         return true
+    }
+
+    override fun isExistEmail(email: String): Boolean {
+        userRepo.validateExistByEmail(email)
+        return false
     }
 
 }

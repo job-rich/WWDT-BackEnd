@@ -16,3 +16,8 @@ fun UserRepository.validateExistByEmail(email: String) {
     // Check if email already exists
     check (!existsByEmail(email = email)) { "Email already exists" }
 }
+
+fun UserRepository.findUserByEmail(email: String): User {
+    // Check User by email if not found throw exception
+    return findByEmail(email = email) ?: throw IllegalStateException("Email not found")
+}
