@@ -68,4 +68,31 @@ class AuthModuleTest {
         verify(userRepo, never()).save(any(User::class.java))
     }
 
+    @Test
+    fun `이메일체크시 이메일이 없을 경우`() {
+        // given
+        val email = "test@example.com"
+
+        // when
+        `when`(userRepo.existsByEmail(email)).thenReturn(false)
+
+        // then
+        val result = authModule.isExistEmail(email)
+        assertThat(result).isFalse()
+        verify(userRepo).validateExistByEmail(email)
+    }
+
+    @Test
+    fun `이메일 체크시 이메일이 존재할 경우`() {
+        // given
+        val email = "test@example.com"
+
+        // when
+        `when`(userRepo.existsByEmail(email)).thenReturn(true)
+
+        // then
+        val result = authModule.isExistEmail(email)
+        assertThat(result).isTrue()
+        verify(userRepo).validateExistByEmail(email)
+    }
 }
