@@ -2,6 +2,7 @@ package com.wwdt.auth
 
 import com.wwdt.auth.domain.User
 import com.wwdt.auth.infra.UserRepository
+import com.wwdt.auth.infra.findUserByEmail
 import com.wwdt.auth.infra.validateExistByEmail
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy

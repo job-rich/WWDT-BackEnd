@@ -39,7 +39,7 @@ allprojects{
 
 val swaggerVersion = "2.5.0"
 val loggerVersion = "7.0.0"
-
+val envVersion = "6.4.2"
 subprojects{
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
@@ -58,6 +58,9 @@ subprojects{
 
         // Database
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+        // Env
+        implementation("io.github.cdimascio:dotenv-kotlin:$envVersion")
 
         // Swagger
         implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$swaggerVersion")

@@ -39,7 +39,7 @@ class AccountModule(
 
     override fun isExistEmail(email: String): Boolean {
         userRepo.validateExistByEmail(email)
-        return false
+        return true
     }
 
 }
