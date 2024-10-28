@@ -1,3 +1,0 @@
-secret-key: ${jwt-secret-key}
-access-expiration-hours: 1
-issuer: ${jwt-issuer}

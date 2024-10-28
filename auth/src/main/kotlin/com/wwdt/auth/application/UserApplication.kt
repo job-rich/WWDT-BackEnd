@@ -5,13 +5,15 @@ import com.wwdt.auth.api.request.LoginUserDto
 import com.wwdt.auth.api.request.RegisterUserDto
 import com.wwdt.auth.domain.AccountService
 import com.wwdt.auth.domain.EditService
+import com.wwdt.shared_kernel.infra.TokenProvider
 import com.wwdt.shared_kernel.model.CommonResponse
 import org.springframework.stereotype.Service
 
 @Service
 class UserApplication(
     private val authModule: AccountService,
-    private val editModule: EditService
+    private val editModule: EditService,
+    private val tokenProvider: TokenProvider
 ) {
     fun processCheckEmail(validationEmail: EmailDto): CommonResponse {
         val isExist = authModule.isExistEmail(validationEmail.email)
@@ -31,10 +33,10 @@ class UserApplication(
 
     fun processLogin(loginUser: LoginUserDto): CommonResponse {
         val user = authModule.authenticate(authenticationVo = loginUser.toValidationUser())
-        TODO("토큰 발급 로직 추가")
+        val token = tokenProvider.generateToken(user.email)
         return CommonResponse(
             message = "Login success",
-            result = user
+            result = token
         )
     }
 }
