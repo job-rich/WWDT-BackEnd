@@ -19,7 +19,7 @@ class EditModuleTest(
     @Mock private val passwordEncoder: PasswordEncoderWrapper,
 ) {
     private val editModule: EditModule = EditModule(userRepo, passwordEncoder)
-    val user = User(email = "dummy@test.com", password = "oldPassword", name = "test")
+    private val user = User(email = "dummy@test.com", password = "oldPassword", name = "test")
     @Test
     fun `비밀번호 변경 성공`() {
         // given
