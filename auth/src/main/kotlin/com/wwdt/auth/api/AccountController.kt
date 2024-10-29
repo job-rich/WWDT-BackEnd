@@ -1,5 +1,6 @@
 package com.wwdt.auth.api
 
+import com.wwdt.auth.api.request.ChangePasswordDto
 import com.wwdt.auth.api.request.EmailDto
 import com.wwdt.auth.api.request.LoginUserDto
 import com.wwdt.auth.api.request.RegisterUserDto
@@ -7,6 +8,7 @@ import com.wwdt.auth.application.UserApplication
 import com.wwdt.shared_kernel.model.CommonResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -32,6 +34,12 @@ class AccountController(
     @PostMapping("/login")
     fun login(@RequestBody loginReq: LoginUserDto): ResponseEntity<CommonResponse> {
         val result: CommonResponse = userApplication.processLogin(loginUser = loginReq)
+        return ResponseEntity(result, HttpStatus.OK)
+    }
+
+    @PatchMapping("/password")
+    fun changePassword(@RequestBody changePasswordReq: ChangePasswordDto): ResponseEntity<CommonResponse> {
+        val result: CommonResponse = userApplication.processChangePassword(changePassword = changePasswordReq)
         return ResponseEntity(result, HttpStatus.OK)
     }
 }

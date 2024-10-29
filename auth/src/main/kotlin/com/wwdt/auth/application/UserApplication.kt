@@ -1,5 +1,6 @@
 package com.wwdt.auth.application
 
+import com.wwdt.auth.api.request.ChangePasswordDto
 import com.wwdt.auth.api.request.EmailDto
 import com.wwdt.auth.api.request.LoginUserDto
 import com.wwdt.auth.api.request.RegisterUserDto
@@ -37,6 +38,14 @@ class UserApplication(
         return CommonResponse(
             message = "Login success",
             result = token
+        )
+    }
+
+    fun processChangePassword(changePassword: ChangePasswordDto): CommonResponse {
+        val isChange = editModule.changePassword(changeVo = changePassword.toPasswordChange())
+        return CommonResponse(
+            message = "Change password success",
+            result = isChange
         )
     }
 }
