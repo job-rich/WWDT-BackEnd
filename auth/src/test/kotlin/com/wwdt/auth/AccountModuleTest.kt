@@ -13,14 +13,20 @@ import com.wwdt.shared_kernel.infra.PasswordEncoderWrapper
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.ArgumentCaptor
+import org.mockito.InjectMocks
+import org.mockito.Mock
 import org.mockito.Mockito.*
+import org.mockito.junit.jupiter.MockitoExtension
 
-class AuthModuleTest {
-    private val userRepo = mock(UserRepository::class.java)
-    private val roleRepo = mock(RoleRepository::class.java)
-    private val passwordEncoder = mock(PasswordEncoderWrapper::class.java)
-    private val authModule = AccountModule(userRepo, roleRepo, passwordEncoder)
+@ExtendWith(MockitoExtension::class)
+class AccountModuleTest(
+    @Mock private val userRepo: UserRepository,
+    @Mock private val roleRepo: RoleRepository,
+    @Mock private val passwordEncoder: PasswordEncoderWrapper,
+) {
+    private val accountModule: AccountModule = AccountModule(userRepo, roleRepo, passwordEncoder)
 
     @Test
     fun `신규 가입 유저 성공적으로 등록`() {
@@ -38,7 +44,7 @@ class AuthModuleTest {
         `when`(passwordEncoder.encode(registerVo.password)).thenReturn(encodedPassword)
         `when`(userRepo.save(registerUser)).thenReturn(registerUser)
 
-        val result = authModule.registerUser(registerVo)
+        val result = accountModule.registerUser(registerVo)
 
         // then
         assertThat(result).isTrue()
@@ -61,7 +67,7 @@ class AuthModuleTest {
         `when`(userRepo.existsByEmail(registerVo.email)).thenReturn(true)
 
         // then
-        assertThatThrownBy { authModule.registerUser(registerVo) }
+        assertThatThrownBy { accountModule.registerUser(registerVo) }
             .isInstanceOf(IllegalStateException::class.java)
             .hasMessage("Email already exists")
         verify(userRepo).validateExistByEmail(registerVo.email)
@@ -77,7 +83,7 @@ class AuthModuleTest {
         `when`(userRepo.existsByEmail(email)).thenReturn(false)
 
         // then
-        val result = authModule.isExistEmail(email)
+        val result = accountModule.isExistEmail(email)
         assertThat(result).isTrue()
         verify(userRepo).validateExistByEmail(email)
     }
@@ -91,7 +97,7 @@ class AuthModuleTest {
         `when`(userRepo.existsByEmail(email)).thenReturn(true)
 
         // then
-        assertThatThrownBy { authModule.isExistEmail(email) }
+        assertThatThrownBy { accountModule.isExistEmail(email) }
             .isInstanceOf(IllegalStateException::class.java)
             .hasMessage("Email already exists")
         verify(userRepo).validateExistByEmail(email)
