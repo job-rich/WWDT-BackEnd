@@ -1,5 +1,6 @@
 package com.wwdt.shared_kernel.core
 
+import com.wwdt.shared_kernel.infra.JWTAuthorizationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
@@ -9,53 +10,31 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.web.cors.CorsConfiguration
-import org.springframework.web.cors.CorsConfigurationSource
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 
 @EnableMethodSecurity
 @EnableWebSecurity
 @Configuration
-class SecurityConfig {
-    private val allowedUrls = arrayOf("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**")
+class SecurityConfig(
+    private val allowedConfig: AllowedConfig,
+    private val jwtAuthorizationFilter: JWTAuthorizationFilter
+) {
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder(18)
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder(15)
 
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain = http
         .csrf { it.disable() }
+        .authorizeHttpRequests {
+            it.requestMatchers(
+                *allowedConfig.urls.map { allowedUrl -> AntPathRequestMatcher(allowedUrl) }.toTypedArray()
+            ).permitAll().anyRequest().authenticated()
+        }
         .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-        .cors { corsConfigurationSource() }
+        .cors { allowedConfig.corsConfigurationSource() }
         .httpBasic { it.disable() }
-        .authorizeHttpRequests { it.anyRequest().permitAll() }
+        .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter::class.java) // jwtAuthorizationFilter is added before UsernamePasswordAuthenticationFilter
         .build()
-
-    @Bean
-    fun corsConfigurationSource(): CorsConfigurationSource {
-        val configuration = CorsConfiguration().apply {
-            allowedOrigins = listOf("*") // TODO: Change to the actual domain
-            allowedMethods = listOf("GET", "POST", "PATCH", "DELETE", "HEAD")
-            allowedHeaders = listOf(
-                "Authorization",
-                "Content-Type",
-                "X-Requested-With",
-                "Accept",
-                "Origin",
-                "Access-Control-Request-Method",
-                "Access-Control-Request-Headers"
-            )
-            exposedHeaders = listOf(
-                "Access-Control-Allow-Origin",
-                "Access-Control-Allow-Credentials",
-                "Authorization",
-                "Content-Disposition"
-            )
-            maxAge = 3600
-        }
-        val source = UrlBasedCorsConfigurationSource().apply {
-            registerCorsConfiguration("/**", configuration)
-        }
-        return source
-    }
 }
