@@ -1,4 +1,4 @@
-package com.wwdt.auth.domain
+package com.wwdt.workspace.domain
 
 data class ValidationUser(
     val email: String,

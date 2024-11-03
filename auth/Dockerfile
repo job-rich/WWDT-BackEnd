@@ -4,10 +4,11 @@ LABEL authors="qjxlftn@gmail.com"
 
 WORKDIR /app
 
-COPY gradle /app/gradle
-COPY gradlew /app/gradlew
-COPY build.gradle.kts /app/
-COPY settings.gradle.kts /app/
+# 루트 프로젝트의 setting.gradle.kts, build.gradle.kts, gradle, gradlew 파일을 복사
+COPY settings.gradle.kts build.gradle.kts gradle/ gradlew /app/
+# 동작할 모듈과 공유 모듈 설정 파일을 복사
+COPY auth/build.gradle.kts /app/auth/
+COPY shared_kernel/build.gradle.kts /app/shared_kernel/
 
 # Gradle 캐시를 활용하여 종속성 다운로드
 RUN ./gradlew build -x test --parallel --continue || true
@@ -15,8 +16,10 @@ RUN ./gradlew build -x test --parallel --continue || true
 # 나머지 복사
 COPY . /app
 
+# 빌드 [Gradle Daemon 사용하지 않음]
+#RUN GRADLE_OPTS="-Xmx1024m -Dorg.gradle.daemon=false" gradle :auth:clean :auth:build -x test
 # 빌드
-RUN gradle clean build -x test
+RUN gradle :auth:clean :auth:build -x test
 
 # Run Stage
 FROM openjdk:21-jdk-slim

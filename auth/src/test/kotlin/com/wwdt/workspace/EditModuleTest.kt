@@ -1,10 +1,10 @@
-package com.wwdt.auth
+package com.wwdt.workspace
 
-import com.wwdt.auth.application.module.EditModule
-import com.wwdt.auth.domain.ChangePassword
-import com.wwdt.auth.domain.ResetPassword
-import com.wwdt.auth.domain.User
-import com.wwdt.auth.infra.UserRepository
+import com.wwdt.workspace.application.module.EditModule
+import com.wwdt.workspace.domain.ChangePassword
+import com.wwdt.workspace.domain.ResetPassword
+import com.wwdt.workspace.domain.User
+import com.wwdt.workspace.infra.UserRepository
 import com.wwdt.shared_kernel.infra.PasswordEncoderWrapper
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy

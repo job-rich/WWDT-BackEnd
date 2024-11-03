@@ -1,11 +1,11 @@
-package com.wwdt.auth.application.module
+package com.wwdt.workspace.application.module
 
-import com.wwdt.auth.domain.EditService
-import com.wwdt.auth.domain.ChangeName
-import com.wwdt.auth.domain.ChangePassword
-import com.wwdt.auth.domain.ResetPassword
-import com.wwdt.auth.infra.UserRepository
-import com.wwdt.auth.infra.findUserByEmail
+import com.wwdt.workspace.domain.EditService
+import com.wwdt.workspace.domain.ChangeName
+import com.wwdt.workspace.domain.ChangePassword
+import com.wwdt.workspace.domain.ResetPassword
+import com.wwdt.workspace.infra.UserRepository
+import com.wwdt.workspace.infra.findUserByEmail
 import com.wwdt.shared_kernel.infra.PasswordEncoderWrapper
 import org.springframework.stereotype.Component
 

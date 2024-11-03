@@ -14,12 +14,29 @@ services:
       - pgdata:/var/lib/postgresql/data
     networks:
       - wwdt_network
-  app:
+  auth-app:
     build:
         context: .
-        dockerfile: Dockerfile
+        dockerfile: auth/Dockerfile
     ports:
-      - "8080:8080"
+      - "10000:8080"
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database/${db}
+      SPRING_DATASOURCE_USERNAME: ${user}
+      SPRING_DATASOURCE_PASSWORD: ${password}
+    depends_on:
+        - database
+    networks:
+        - wwdt_network
+  workspace-app:
+    build:
+      context: .
+      dockerfile: workspace/Dockerfile
+    ports:
+      - "10001:8080"
     env_file:
       - .env
     environment:

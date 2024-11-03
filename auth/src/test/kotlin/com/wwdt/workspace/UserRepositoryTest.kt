@@ -1,9 +1,9 @@
-package com.wwdt.auth
+package com.wwdt.workspace
 
-import com.wwdt.auth.domain.User
-import com.wwdt.auth.infra.UserRepository
-import com.wwdt.auth.infra.findUserByEmail
-import com.wwdt.auth.infra.validateExistByEmail
+import com.wwdt.workspace.domain.User
+import com.wwdt.workspace.infra.UserRepository
+import com.wwdt.workspace.infra.findUserByEmail
+import com.wwdt.workspace.infra.validateExistByEmail
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
