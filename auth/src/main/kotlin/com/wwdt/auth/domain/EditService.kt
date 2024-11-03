@@ -7,5 +7,4 @@ interface EditService {
 
     fun changeName(changeVo: ChangeName): Boolean
 
-    fun changeRole(): Unit
 }
