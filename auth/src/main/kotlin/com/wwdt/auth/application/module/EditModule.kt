@@ -40,7 +40,4 @@ class EditModule(
         TODO("Not yet implemented")
     }
 
-    override fun changeRole() {
-        TODO("Not yet implemented")
-    }
 }
