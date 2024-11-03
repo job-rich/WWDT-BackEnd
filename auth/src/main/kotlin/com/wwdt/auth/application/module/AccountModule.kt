@@ -14,17 +14,16 @@ import org.springframework.transaction.annotation.Transactional
 class AccountModule(
     private val userRepo: UserRepository,
     private val roleRepo: RoleRepository,
-    private val passwordEncoder: PasswordEncoderWrapper
-): AccountService {
+    private val passwordEncoder: PasswordEncoderWrapper,
+) : AccountService {
     override fun authenticate(authenticationVo: ValidationUser): User {
         val user = userRepo.findUserByEmail(authenticationVo.email)
-        check (passwordEncoder.matches(authenticationVo.password, user.password)) { "Password is incorrect" }
+        check(passwordEncoder.matches(authenticationVo.password, user.password)) { "Password is incorrect" }
         return user
     }
 
     @Transactional
     override fun registerUser(registerVo: RegistrationUser): Boolean {
-        userRepo.validateExistByEmail(registerVo.email)
         val registerUser = User(
             email = registerVo.email,
             password = passwordEncoder.encode(registerVo.password),

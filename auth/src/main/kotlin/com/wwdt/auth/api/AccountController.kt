@@ -1,9 +1,6 @@
 package com.wwdt.auth.api
 
-import com.wwdt.auth.api.request.ChangePasswordDto
-import com.wwdt.auth.api.request.EmailDto
-import com.wwdt.auth.api.request.LoginUserDto
-import com.wwdt.auth.api.request.RegisterUserDto
+import com.wwdt.auth.api.request.*
 import com.wwdt.auth.application.UserApplication
 import com.wwdt.shared_kernel.model.CommonResponse
 import org.springframework.http.HttpStatus
@@ -40,6 +37,12 @@ class AccountController(
     @PatchMapping("/password")
     fun changePassword(@RequestBody changePasswordReq: ChangePasswordDto): ResponseEntity<CommonResponse> {
         val result: CommonResponse = userApplication.processChangePassword(changePassword = changePasswordReq)
+        return ResponseEntity(result, HttpStatus.OK)
+    }
+
+    @PatchMapping("/reset-password")
+    fun resetPassword(@RequestBody resetPasswordReq: ResetPasswordDto): ResponseEntity<CommonResponse> {
+        val result: CommonResponse = userApplication.processResetPassword(resetPassword = resetPasswordReq)
         return ResponseEntity(result, HttpStatus.OK)
     }
 }

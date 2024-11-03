@@ -1,9 +1,6 @@
 package com.wwdt.auth.application
 
-import com.wwdt.auth.api.request.ChangePasswordDto
-import com.wwdt.auth.api.request.EmailDto
-import com.wwdt.auth.api.request.LoginUserDto
-import com.wwdt.auth.api.request.RegisterUserDto
+import com.wwdt.auth.api.request.*
 import com.wwdt.auth.domain.AccountService
 import com.wwdt.auth.domain.EditService
 import com.wwdt.shared_kernel.infra.TokenProvider
@@ -25,6 +22,7 @@ class UserApplication(
     }
 
     fun processRegisterUser(registerUser: RegisterUserDto): CommonResponse {
+        check(authModule.isExistEmail(registerUser.email))
         val isRegister = authModule.registerUser(registerVo = registerUser.toRegistrationUser())
         return CommonResponse(
             message = "Register success",
@@ -46,6 +44,14 @@ class UserApplication(
         return CommonResponse(
             message = "Change password success",
             result = isChange
+        )
+    }
+
+    fun processResetPassword(resetPassword: ResetPasswordDto): CommonResponse {
+        val newPassword = editModule.resetPassword(resetVo = resetPassword.toResetPassword())
+        return CommonResponse(
+            message = "Reset password success",
+            result = newPassword
         )
     }
 }
