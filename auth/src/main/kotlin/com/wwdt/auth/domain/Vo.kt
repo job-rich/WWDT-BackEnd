@@ -10,13 +10,18 @@ data class RegistrationUser(
     val password: String,
     val name: String,
 )
-data class PasswordChange(
+data class ChangePassword(
     val email: String,
     val oldPassword: String,
     val newPassword: String,
 )
 
-data class NameChange(
+data class ResetPassword(
+    val email: String,
+    val name: String,
+)
+
+data class ChangeName(
     val email: String,
     val name: String,
 )

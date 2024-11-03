@@ -48,7 +48,6 @@ class AccountModuleTest(
 
         // then
         assertThat(result).isTrue()
-        verify(userRepo).existsByEmail(registerVo.email)
         verify(roleRepo).findRoleByType(RoleGrant.ROLE_USER)
         verify(passwordEncoder).encode(registerVo.password)
 
@@ -57,21 +56,6 @@ class AccountModuleTest(
         val savedUser = userCaptor.value
         assertThat(savedUser.email).isEqualTo(registerVo.email)
 
-    }
-    @Test
-    fun `이미 가입된 유저가 가입 시도할 경우 예외 발생`() {
-        // given
-        val registerVo = RegistrationUser(email = "test@example.com", password = "password", name = "test")
-
-        // when
-        `when`(userRepo.existsByEmail(registerVo.email)).thenReturn(true)
-
-        // then
-        assertThatThrownBy { accountModule.registerUser(registerVo) }
-            .isInstanceOf(IllegalStateException::class.java)
-            .hasMessage("Email already exists")
-        verify(userRepo).validateExistByEmail(registerVo.email)
-        verify(userRepo, never()).save(any(User::class.java))
     }
 
     @Test

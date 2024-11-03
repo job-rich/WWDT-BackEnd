@@ -1,11 +1,11 @@
 package com.wwdt.auth.domain
 
 interface EditService {
-    fun changePassword(changeVo: PasswordChange): Boolean
+    fun changePassword(changeVo: ChangePassword): Boolean
 
-    fun resetPassword(email: String): Boolean
+    fun resetPassword(resetVo: ResetPassword): String
 
-    fun changeName(changeVo: NameChange): Boolean
+    fun changeName(changeVo: ChangeName): Boolean
 
     fun changeRole(): Unit
 }

@@ -1,7 +1,8 @@
 package com.wwdt.auth.api.request
 
-import com.wwdt.auth.domain.PasswordChange
+import com.wwdt.auth.domain.ChangePassword
 import com.wwdt.auth.domain.RegistrationUser
+import com.wwdt.auth.domain.ResetPassword
 import com.wwdt.auth.domain.ValidationUser
 import com.wwdt.shared_kernel.utils.ValidationUtils
 
@@ -58,9 +59,23 @@ data class ChangePasswordDto(
         require(newPassword.isNotBlank()) { "New password must not be blank" }
     }
 
-    fun toPasswordChange() = PasswordChange(
+    fun toPasswordChange() = ChangePassword(
         email = email,
         oldPassword = oldPassword,
         newPassword = newPassword,
+    )
+}
+
+data class ResetPasswordDto(
+    val email: String,
+    val name: String,
+) {
+    init {
+        require(ValidationUtils.isEmailValid(email)) { "Email must be a valid email address" }
+        require(name.isNotBlank()) { "Name must not be blank" }
+    }
+    fun toResetPassword() = ResetPassword(
+        email = email,
+        name = name,
     )
 }
