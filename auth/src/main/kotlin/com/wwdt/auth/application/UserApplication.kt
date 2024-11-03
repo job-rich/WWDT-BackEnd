@@ -14,7 +14,7 @@ class UserApplication(
     private val tokenProvider: TokenProvider
 ) {
     fun processCheckEmail(validationEmail: EmailDto): CommonResponse {
-        val isExist = authModule.isExistEmail(validationEmail.email)
+        val isExist = authModule.isExistEmail(email = validationEmail.email)
         return CommonResponse(
             message = "Email is not exist Continue to register",
             result = isExist

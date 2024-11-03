@@ -5,19 +5,15 @@ import com.wwdt.auth.application.UserApplication
 import com.wwdt.shared_kernel.model.CommonResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/v1/api/account")
 class AccountController(
     private val userApplication: UserApplication
 ) {
-    @PostMapping("/check-email")
-    fun checkEmail(@RequestBody emailReq: EmailDto): ResponseEntity<CommonResponse> {
+    @GetMapping("/check-email")
+    fun checkEmail(emailReq: EmailDto): ResponseEntity<CommonResponse> {
         val result: CommonResponse = userApplication.processCheckEmail(validationEmail = emailReq)
         return ResponseEntity(result, HttpStatus.OK)
     }
