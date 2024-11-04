@@ -1,0 +1,31 @@
+package com.wwdt.workspace.domain
+
+import com.wwdt.shared_kernel.model.BaseEntity
+import com.wwdt.workspace.domain.enums.WorkspaceType
+import jakarta.persistence.*
+import java.util.*
+
+@Entity
+@Table(
+    name = "t_service_permission",
+    indexes = [Index(name = "idx_index_user_id", columnList = "userId")]
+)
+class ServicePermission(
+
+    @JoinColumn(name = "role_seq")
+    @ManyToOne(fetch = FetchType.LAZY)
+    val role: Role,
+
+    @Column(nullable = false)
+    val workspaceId: UUID,
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    val workspaceType: WorkspaceType,
+
+    @Column(nullable = false)
+    val userId: UUID,
+
+    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    val id: UUID,
+) : BaseEntity()

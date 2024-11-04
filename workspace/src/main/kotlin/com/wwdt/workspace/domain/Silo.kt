@@ -2,7 +2,7 @@ package com.wwdt.workspace.domain
 
 import com.wwdt.shared_kernel.model.BaseEntity
 import jakarta.persistence.*
-
+import java.util.*
 
 
 @Entity
@@ -18,7 +18,12 @@ class Silo(
     @Column(nullable = false, length = 255)
     var name: String,
 
+    @Column
+    val description: String,
+
+    @Column
+    val ownerId: UUID,
+
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     val id: String,
-): BaseEntity() {
-}
+) : BaseEntity()

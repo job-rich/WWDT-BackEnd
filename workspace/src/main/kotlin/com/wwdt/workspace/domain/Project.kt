@@ -7,7 +7,7 @@ import java.util.UUID
 @Entity
 @Table(
     name = "t_project",
-    indexes = [Index(name = "idx_project_name", columnList = "name")]
+    indexes = [Index(name = "idx_project_name", columnList = "name"), Index(name = "idx_project_owner_id", columnList = "ownerId")]
 )
 class Project(
 
@@ -19,6 +19,9 @@ class Project(
 
     @Column
     val description: String,
+
+    @Column
+    val ownerId: UUID,
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID

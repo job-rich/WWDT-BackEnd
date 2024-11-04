@@ -25,7 +25,7 @@ class UserRepositoryTest {
 
         // then
         assertThat(foundUser).isNotNull
-        assertThat(foundUser?.email).isEqualTo("test@example.com")
+        assertThat(foundUser.email).isEqualTo("test@example.com")
     }
     @Test
     fun `사용자 이메일이 존재하면 예외처리`() {
