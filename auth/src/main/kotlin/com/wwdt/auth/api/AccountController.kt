@@ -1,7 +1,7 @@
-package com.wwdt.workspace.api
+package com.wwdt.auth.api
 
-import com.wwdt.workspace.api.request.*
-import com.wwdt.workspace.application.UserApplication
+import com.wwdt.auth.api.request.*
+import com.wwdt.auth.application.UserApplication
 import com.wwdt.shared_kernel.model.CommonResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

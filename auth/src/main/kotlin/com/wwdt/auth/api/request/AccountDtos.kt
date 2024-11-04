@@ -1,9 +1,9 @@
-package com.wwdt.workspace.api.request
+package com.wwdt.auth.api.request
 
-import com.wwdt.workspace.domain.ChangePassword
-import com.wwdt.workspace.domain.RegistrationUser
-import com.wwdt.workspace.domain.ResetPassword
-import com.wwdt.workspace.domain.ValidationUser
+import com.wwdt.auth.domain.ChangePassword
+import com.wwdt.auth.domain.RegistrationUser
+import com.wwdt.auth.domain.ResetPassword
+import com.wwdt.auth.domain.ValidationUser
 import com.wwdt.shared_kernel.utils.ValidationUtils
 
 data class EmailDto(

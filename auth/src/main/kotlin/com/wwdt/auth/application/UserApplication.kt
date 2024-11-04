@@ -1,8 +1,8 @@
-package com.wwdt.workspace.application
+package com.wwdt.auth.application
 
-import com.wwdt.workspace.api.request.*
-import com.wwdt.workspace.domain.AccountService
-import com.wwdt.workspace.domain.EditService
+import com.wwdt.auth.api.request.*
+import com.wwdt.auth.domain.AccountService
+import com.wwdt.auth.domain.EditService
 import com.wwdt.shared_kernel.infra.TokenProvider
 import com.wwdt.shared_kernel.model.CommonResponse
 import org.springframework.stereotype.Service

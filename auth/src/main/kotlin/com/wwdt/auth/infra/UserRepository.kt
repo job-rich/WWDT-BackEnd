@@ -1,9 +1,9 @@
-package com.wwdt.workspace.infra
+package com.wwdt.auth.infra
 
-import com.wwdt.workspace.domain.User
+import com.wwdt.auth.domain.User
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import java.util.UUID
+import java.util.*
 
 @Repository
 interface UserRepository: JpaRepository<User, UUID> {

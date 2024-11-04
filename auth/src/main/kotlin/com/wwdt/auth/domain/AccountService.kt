@@ -1,4 +1,4 @@
-package com.wwdt.workspace.domain
+package com.wwdt.auth.domain
 
 interface AccountService {
     fun authenticate(authenticationVo: ValidationUser): User

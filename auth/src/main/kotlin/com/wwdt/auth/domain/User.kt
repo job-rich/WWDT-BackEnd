@@ -1,4 +1,4 @@
-package com.wwdt.workspace.domain
+package com.wwdt.auth.domain
 
 import com.wwdt.auth.domain.enums.LoginType
 import com.wwdt.shared_kernel.model.BaseEntity
