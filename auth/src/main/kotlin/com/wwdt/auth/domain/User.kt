@@ -1,5 +1,6 @@
 package com.wwdt.auth.domain
 
+import com.wwdt.auth.domain.enums.LoginType
 import com.wwdt.shared_kernel.model.BaseEntity
 import jakarta.persistence.*
 import java.util.UUID
@@ -9,9 +10,6 @@ import java.util.UUID
        indexes = [Index(name = "idx_user_email", columnList = "email", unique = true)]
 )
 class User(
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL] ,fetch = FetchType.LAZY)
-    val roles: MutableList<UserRole> = mutableListOf(),
-
     @Column(length = 255)
     var password: String,
 
@@ -20,6 +18,10 @@ class User(
 
     @Column(unique = true, length = 255)
     val email: String,
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    val loginType: LoginType = LoginType.LOCAL,
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID = UUID.randomUUID(),

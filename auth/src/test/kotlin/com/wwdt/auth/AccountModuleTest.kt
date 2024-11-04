@@ -2,11 +2,7 @@ package com.wwdt.auth
 
 import com.wwdt.auth.application.module.AccountModule
 import com.wwdt.auth.domain.RegistrationUser
-import com.wwdt.auth.domain.Role
 import com.wwdt.auth.domain.User
-import com.wwdt.auth.domain.UserRole
-import com.wwdt.auth.domain.enums.RoleGrant
-import com.wwdt.auth.infra.RoleRepository
 import com.wwdt.auth.infra.UserRepository
 import com.wwdt.auth.infra.validateExistByEmail
 import com.wwdt.shared_kernel.infra.PasswordEncoderWrapper
@@ -15,40 +11,32 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.ArgumentCaptor
-import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
 class AccountModuleTest(
     @Mock private val userRepo: UserRepository,
-    @Mock private val roleRepo: RoleRepository,
     @Mock private val passwordEncoder: PasswordEncoderWrapper,
 ) {
-    private val accountModule: AccountModule = AccountModule(userRepo, roleRepo, passwordEncoder)
+    private val accountModule: AccountModule = AccountModule(userRepo, passwordEncoder)
 
     @Test
     fun `신규 가입 유저 성공적으로 등록`() {
         // given
         val registerVo = RegistrationUser(email = "test@example.com", password = "password", name = "test")
         val encodedPassword = "encodedPassword"
-        val basicRole = Role(type = RoleGrant.ROLE_USER)
-        val registerUser = User(email = registerVo.email, password = encodedPassword, name = registerVo.name)
-        val userRole = UserRole(user = registerUser, role = basicRole)
-        registerUser.roles.add(userRole)
 
         // when
         `when`(userRepo.existsByEmail(registerVo.email)).thenReturn(false)
-        `when`(roleRepo.findRoleByType(RoleGrant.ROLE_USER)).thenReturn(basicRole)
         `when`(passwordEncoder.encode(registerVo.password)).thenReturn(encodedPassword)
-        `when`(userRepo.save(registerUser)).thenReturn(registerUser)
 
         val result = accountModule.registerUser(registerVo)
 
         // then
         assertThat(result).isTrue()
-        verify(roleRepo).findRoleByType(RoleGrant.ROLE_USER)
         verify(passwordEncoder).encode(registerVo.password)
 
         val userCaptor = ArgumentCaptor.forClass(User::class.java)
