@@ -2,12 +2,15 @@ package com.wwdt.workspace.domain
 
 import com.wwdt.shared_kernel.model.BaseEntity
 import jakarta.persistence.*
-import java.util.UUID
+import java.util.*
 
 @Entity
 @Table(
     name = "t_project",
-    indexes = [Index(name = "idx_project_name", columnList = "name"), Index(name = "idx_project_owner_id", columnList = "ownerId")]
+    indexes = [Index(name = "idx_project_name", columnList = "name"), Index(
+        name = "idx_project_owner_id",
+        columnList = "ownerId"
+    )]
 )
 class Project(
 
@@ -24,5 +27,5 @@ class Project(
     val ownerId: UUID,
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID
-): BaseEntity()
+    val id: UUID,
+) : BaseEntity()

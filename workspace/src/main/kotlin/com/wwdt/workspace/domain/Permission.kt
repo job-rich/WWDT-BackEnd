@@ -7,10 +7,10 @@ import java.util.*
 
 @Entity
 @Table(
-    name = "t_service_permission",
+    name = "t_permission",
     indexes = [Index(name = "idx_index_user_id", columnList = "userId")]
 )
-class ServicePermission(
+class Permission(
 
     @JoinColumn(name = "role_seq")
     @ManyToOne(fetch = FetchType.LAZY)
