@@ -30,12 +30,20 @@ class PermissionModule(
         return permissionRepository.save(projectPermission)
     }
 
-    override fun hasPermission(workspacePermissionVo: WorkspacePermissionVo): Boolean {
-        permissionRepository.validatePermissionExistence(
+    override fun existPermission(workspacePermissionVo: WorkspacePermissionVo) {
+        val hasPermission = permissionRepository.validatePermissionExistence(
             userId = workspacePermissionVo.userId,
             workspaceId = workspacePermissionVo.workspaceId,
             roleSeq = workspacePermissionVo.role.seq,
         )
-        return true
+        check(!hasPermission) { "Permission already exists" }
+    }
+    override fun hasPermission(workspacePermissionVo: WorkspacePermissionVo) {
+        val hasPermission = permissionRepository.validatePermissionExistence(
+            userId = workspacePermissionVo.userId,
+            workspaceId = workspacePermissionVo.workspaceId,
+            roleSeq = workspacePermissionVo.role.seq,
+        )
+        check(hasPermission) { "Permission does not exist" }
     }
 }

@@ -6,7 +6,8 @@ interface PermissionService {
     fun getRoleList(): Array<Role>
     fun getRoleDetail(authority: Authority): Role
     fun createWorkspacePermission(workspacePermissionVo: WorkspacePermissionVo): Permission
-    fun hasPermission(workspacePermissionVo: WorkspacePermissionVo): Boolean
+    fun hasPermission(workspacePermissionVo: WorkspacePermissionVo)
+    fun existPermission(workspacePermissionVo: WorkspacePermissionVo)
 }
 
 

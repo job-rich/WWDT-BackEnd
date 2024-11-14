@@ -28,7 +28,7 @@ class WorkspaceApplication(
             workspaceType = WorkspaceType.PROJECT,
             role = role,
         )
-        permissionModule.hasPermission(workspacePermissionVo = permission)
+        permissionModule.existPermission(workspacePermissionVo = permission)
         permissionModule.createWorkspacePermission(workspacePermissionVo = permission)
         return CommonResponse(
             message = "create project success",

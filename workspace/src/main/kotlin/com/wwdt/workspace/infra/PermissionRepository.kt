@@ -10,13 +10,12 @@ interface PermissionRepository : JpaRepository<Permission, UUID> {
     fun existsByUserIdAndWorkspaceIdAndRoleSeq(userId: UUID, workspaceId: UUID, roleSeq: Long): Boolean
 }
 
-fun PermissionRepository.validatePermissionExistence(userId: UUID, workspaceId: UUID, roleSeq: Long) {
+fun PermissionRepository.validatePermissionExistence(userId: UUID, workspaceId: UUID, roleSeq: Long): Boolean {
     // Check if permission already exists
-    check(
-        !existsByUserIdAndWorkspaceIdAndRoleSeq(
-            userId = userId,
-            workspaceId = workspaceId,
-            roleSeq = roleSeq
-        )
-    ) { "Permission already exists" }
+    return existsByUserIdAndWorkspaceIdAndRoleSeq(
+        userId = userId,
+        workspaceId = workspaceId,
+        roleSeq = roleSeq
+    )
+
 }
