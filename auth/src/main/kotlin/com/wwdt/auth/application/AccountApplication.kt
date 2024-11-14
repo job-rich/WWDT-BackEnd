@@ -8,7 +8,7 @@ import com.wwdt.shared_kernel.model.CommonResponse
 import org.springframework.stereotype.Service
 
 @Service
-class UserApplication(
+class AccountApplication(
     private val authModule: AccountService,
     private val editModule: EditService,
     private val tokenProvider: TokenProvider

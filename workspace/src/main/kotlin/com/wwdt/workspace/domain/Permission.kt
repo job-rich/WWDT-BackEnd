@@ -27,5 +27,5 @@ class Permission(
     val userId: UUID,
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID,
+    val id: UUID = UUID.randomUUID(),
 ) : BaseEntity()

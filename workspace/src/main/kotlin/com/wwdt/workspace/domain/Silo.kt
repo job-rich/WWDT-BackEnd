@@ -25,5 +25,5 @@ class Silo(
     val ownerId: UUID,
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
-    val id: String,
+    val id: UUID = UUID.randomUUID(),
 ) : BaseEntity()

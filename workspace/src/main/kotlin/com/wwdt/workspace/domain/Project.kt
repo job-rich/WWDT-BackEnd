@@ -21,11 +21,11 @@ class Project(
     var name: String,
 
     @Column
-    val description: String,
+    var description: String?,
 
     @Column
     val ownerId: UUID,
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID,
+    val id: UUID = UUID.randomUUID(),
 ) : BaseEntity()

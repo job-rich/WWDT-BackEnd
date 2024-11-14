@@ -4,13 +4,13 @@ import com.wwdt.auth.domain.ChangePassword
 import com.wwdt.auth.domain.RegistrationUser
 import com.wwdt.auth.domain.ResetPassword
 import com.wwdt.auth.domain.ValidationUser
-import com.wwdt.shared_kernel.utils.ValidationUtils
+import com.wwdt.shared_kernel.utils.ValidationExtension
 
 data class EmailDto(
     val email: String,
 ) {
     init {
-        require(ValidationUtils.isEmailValid(email)) { "Email must be a valid email address" }
+        require(ValidationExtension.isEmailValid(email)) { "Email must be a valid email address" }
     }
 }
 
@@ -19,7 +19,7 @@ data class LoginUserDto(
     val password: String,
 ) {
     init {
-        require(ValidationUtils.isEmailValid(email)) { "Email must be a valid email address" }
+        require(ValidationExtension.isEmailValid(email)) { "Email must be a valid email address" }
         require(password.isNotBlank()) { "Password must not be blank" }
     }
 
@@ -36,7 +36,7 @@ data class RegisterUserDto(
     val name: String,
 ) {
     init {
-        require(ValidationUtils.isEmailValid(email)) { "Email must be a valid email address" }
+        require(ValidationExtension.isEmailValid(email)) { "Email must be a valid email address" }
         require(password.isNotBlank()) { "Password must not be blank" }
         require(name.isNotBlank()) { "Name must not be blank" }
     }
@@ -54,7 +54,7 @@ data class ChangePasswordDto(
     val newPassword: String,
 ) {
     init {
-        require(ValidationUtils.isEmailValid(email)) { "Email must be a valid email address" }
+        require(ValidationExtension.isEmailValid(email)) { "Email must be a valid email address" }
         require(oldPassword.isNotBlank()) { "Old password must not be blank" }
         require(newPassword.isNotBlank()) { "New password must not be blank" }
     }
@@ -71,7 +71,7 @@ data class ResetPasswordDto(
     val name: String,
 ) {
     init {
-        require(ValidationUtils.isEmailValid(email)) { "Email must be a valid email address" }
+        require(ValidationExtension.isEmailValid(email)) { "Email must be a valid email address" }
         require(name.isNotBlank()) { "Name must not be blank" }
     }
     fun toResetPassword() = ResetPassword(

@@ -1,12 +1,12 @@
 package com.wwdt.workspace.domain
 
-import com.wwdt.workspace.domain.enums.Authority
 import com.wwdt.workspace.domain.enums.WorkspaceType
+import java.util.*
 
 data class CreateProjectVo(
     val name: String,
     val description: String,
-    val ownerId: String,
+    val ownerId: UUID,
 )
 
 data class UpdateProjectVo(
@@ -28,18 +28,12 @@ data class UpdateSiloVo(
     val description: String,
 )
 
-data class CreateWorkspacePermissionVo(
-    val userId: String,
-    val workspaceId: String,
+data class WorkspacePermissionVo(
+    val userId: UUID,
+    val workspaceId: UUID,
     val workspaceType: WorkspaceType,
     val role: Role,
 )
 
-data class HasPermissionVo(
-    val userId: String,
-    val workspaceId: String,
-    val workspaceType: WorkspaceType,
-    val permission: Authority,
-)
 
 

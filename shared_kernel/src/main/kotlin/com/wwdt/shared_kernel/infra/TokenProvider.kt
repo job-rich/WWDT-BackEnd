@@ -1,22 +1,20 @@
 package com.wwdt.shared_kernel.infra
 
-import com.wwdt.shared_kernel.utils.EnvUtils
+import com.wwdt.shared_kernel.utils.EnvExtension
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.stereotype.Component
 import java.util.*
-import javax.crypto.spec.SecretKeySpec
 
 
 @Component
 class TokenProvider {
-    private val secret: String = EnvUtils.getEnv("jwt-secret-key")
+    private val secret: String = EnvExtension.getEnv("jwt-secret-key")
         ?: throw IllegalStateException("Missing jwt-secret-key")
-    private val accessExpirationHours: Long = EnvUtils.getEnv("jwt-access-expiration-hours")?.toLong()
+    private val accessExpirationHours: Long = EnvExtension.getEnv("jwt-access-expiration-hours")?.toLong()
         ?: throw IllegalStateException("Missing jwt-access-expiration-hours")
-    private val issuer: String = EnvUtils.getEnv("jwt-issuer")
+    private val issuer: String = EnvExtension.getEnv("jwt-issuer")
         ?: throw IllegalStateException("Missing jwt-issuer")
 
     private val key = Keys.hmacShaKeyFor(secret.toByteArray())
