@@ -13,7 +13,7 @@ import java.util.*
 class Permission(
 
     @JoinColumn(name = "role_seq")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
     val role: Role,
 
     @Column(nullable = false)

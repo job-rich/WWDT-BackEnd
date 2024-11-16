@@ -16,5 +16,5 @@ class Role(
     val description: String,
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val seq: Long
+    val seq: Long = 0L,
 ): BaseEntity()

@@ -5,6 +5,7 @@ import com.wwdt.auth.domain.ChangePassword
 import com.wwdt.auth.domain.ResetPassword
 import com.wwdt.auth.domain.User
 import com.wwdt.auth.infra.UserRepository
+import com.wwdt.shared_kernel.core.ConstantsConfig
 import com.wwdt.shared_kernel.infra.PasswordEncoderWrapper
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -21,25 +22,25 @@ class EditModuleTest(
     @Mock private val passwordEncoder: PasswordEncoderWrapper,
 ) {
     private val editModule: EditModule = EditModule(userRepo, passwordEncoder)
-    private val user = User(email = "dummy@test.com", password = "oldPassword", name = "test")
+    private val user = User(email = ConstantsConfig.DUMMY_EMAIL, password = ConstantsConfig.DUMMY_PASSWORD, name = ConstantsConfig.DUMMY_NAME)
 
     @Test
     fun `비밀번호 변경 성공`() {
         // given
         val changeVo =
-            ChangePassword(email = "dummy@test.com", oldPassword = "oldPassword", newPassword = "newPassword")
+            ChangePassword(email = ConstantsConfig.DUMMY_EMAIL, oldPassword = ConstantsConfig.DUMMY_PASSWORD, newPassword = "newPassword")
 
         // when
         `when`(userRepo.findByEmail(changeVo.email)).thenReturn(user)
         `when`(passwordEncoder.matches(changeVo.oldPassword, user.password)).thenReturn(true)
-        `when`(passwordEncoder.encode(changeVo.newPassword)).thenReturn("encodedPassword")
+        `when`(passwordEncoder.encode(changeVo.newPassword)).thenReturn(ConstantsConfig.DUMMY_ENCODED_PASSWORD)
         `when`(userRepo.save(user)).thenReturn(user)
 
         val result = editModule.changePassword(changeVo)
 
         // then
         assertThat(result).isTrue()
-        assertThat(user.password).isEqualTo("encodedPassword")
+        assertThat(user.password).isEqualTo(ConstantsConfig.DUMMY_ENCODED_PASSWORD)
         assertThat(userRepo.save(user)).isEqualTo(user)
     }
 
@@ -47,7 +48,7 @@ class EditModuleTest(
     fun `비밀번호 변경 실패`() {
         // given
         val changeVo =
-            ChangePassword(email = "dummy@test.com", oldPassword = "oldPassword", newPassword = "newPassword")
+            ChangePassword(email = ConstantsConfig.DUMMY_EMAIL, oldPassword = ConstantsConfig.DUMMY_PASSWORD, newPassword = "newPassword")
 
         // when
         `when`(userRepo.findByEmail(changeVo.email)).thenReturn(user)
@@ -62,7 +63,7 @@ class EditModuleTest(
     @Test
     fun `비밀번호 초기화 성공`() {
         // given
-        val resetVo = ResetPassword(email = "dummy@test.com", name = "test")
+        val resetVo = ResetPassword(email = ConstantsConfig.DUMMY_EMAIL, name = ConstantsConfig.DUMMY_NAME)
 
         // when
         `when`(userRepo.findByEmail(resetVo.email)).thenReturn(user)
@@ -78,7 +79,7 @@ class EditModuleTest(
     @Test
     fun `비밀번호 초기화 실패 - 유저 이름 불일치`() {
         // given
-        val resetVo = ResetPassword(email = "dummy@test.com", name = "wrongName")
+        val resetVo = ResetPassword(email = ConstantsConfig.DUMMY_EMAIL, name = "wrongName")
 
         // when
         `when`(userRepo.findByEmail(resetVo.email)).thenReturn(user)

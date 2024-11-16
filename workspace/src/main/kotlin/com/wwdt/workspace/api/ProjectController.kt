@@ -1,8 +1,8 @@
 package com.wwdt.workspace.api
 
+import com.wwdt.shared_kernel.model.CommonResponse
 import com.wwdt.workspace.api.request.CreateProjectDto
 import com.wwdt.workspace.application.WorkspaceApplication
-import com.wwdt.workspace.domain.Project
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/v1/api/projects")
 class ProjectController(
-    private val WorkspaceApplication: WorkspaceApplication
+    private val workspaceApplication: WorkspaceApplication
 ) {
     @GetMapping
     fun getProjects(): String {
@@ -23,8 +23,8 @@ class ProjectController(
     }
 
     @PostMapping
-    fun createProject(createProjectReq: CreateProjectDto): ResponseEntity<Project> {
-        val result = WorkspaceApplication.processCreateProject(createProjectReq)
+    fun createProject(createProjectReq: CreateProjectDto): ResponseEntity<CommonResponse> {
+        val result = workspaceApplication.processCreateProject(createProjectReq)
         return ResponseEntity(result, HttpStatus.CREATED)
     }
 

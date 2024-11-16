@@ -5,6 +5,7 @@ import com.wwdt.auth.domain.RegistrationUser
 import com.wwdt.auth.domain.User
 import com.wwdt.auth.infra.UserRepository
 import com.wwdt.auth.infra.validateExistByEmail
+import com.wwdt.shared_kernel.core.ConstantsConfig
 import com.wwdt.shared_kernel.infra.PasswordEncoderWrapper
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -26,8 +27,8 @@ class AccountModuleTest(
     @Test
     fun `신규 가입 유저 성공적으로 등록`() {
         // given
-        val registerVo = RegistrationUser(email = "test@example.com", password = "password", name = "test")
-        val encodedPassword = "encodedPassword"
+        val registerVo = RegistrationUser(email = ConstantsConfig.DUMMY_EMAIL, password = ConstantsConfig.DUMMY_PASSWORD, name = ConstantsConfig.DUMMY_NAME)
+        val encodedPassword = ConstantsConfig.DUMMY_ENCODED_PASSWORD
 
         // when
         `when`(userRepo.existsByEmail(registerVo.email)).thenReturn(false)
@@ -49,7 +50,7 @@ class AccountModuleTest(
     @Test
     fun `이메일체크시 이메일이 없을 경우`() {
         // given
-        val email = "test@example.com"
+        val email = ConstantsConfig.DUMMY_EMAIL
 
         // when
         `when`(userRepo.existsByEmail(email)).thenReturn(false)
@@ -63,7 +64,7 @@ class AccountModuleTest(
     @Test
     fun `이메일 체크시 이메일이 존재할 경우`() {
         // given
-        val email = "test@example.com"
+        val email = ConstantsConfig.DUMMY_EMAIL
 
         // when
         `when`(userRepo.existsByEmail(email)).thenReturn(true)
